@@ -79,3 +79,9 @@ temp/
 .coverage
 coverage.xml
 htmlcov/
+
+# =========================
+# macOS system files
+# =========================
+.DS_Store
+_MACOSX/
