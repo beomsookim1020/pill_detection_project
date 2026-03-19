@@ -3,9 +3,6 @@ run_preprocessing.py
 ====================
 HealthEat 데이터 전처리 파이프라인 전체 실행 스크립트
 
-실행 방법:
-    python run_preprocessing.py
-
 파이프라인 순서:
     [Step 1]   Stratified Split       → train_raw.json / val.json
     [Step 1-B] 소수 클래스 스티커 추출 → crops_minority/ + crop_meta.csv
@@ -14,26 +11,6 @@ HealthEat 데이터 전처리 파이프라인 전체 실행 스크립트
                                         letterbox_images/train, val/
     [Step 4]   CLAHE 대비 강화        → letterbox_images/ in-place 덮어쓰기
     [Step 5]   YOLO 라벨 변환         → yolo_labels/train, val/ + data.yaml
-
-사전 조건:
-    - data/ 폴더(로컬) 또는 구글 드라이브(Colab)에
-      merged_annotations_train_final.json 과 원본 이미지 존재
-    - requirements.txt 설치 완료
-
-출력 결과물:
-    data/
-    ├── train_raw.json
-    ├── val.json
-    ├── train_augmented_final.json
-    ├── train_letterbox.json
-    ├── val_letterbox.json
-    ├── letterbox_images/
-    │   ├── train/
-    │   └── val/
-    ├── yolo_labels/
-    │   ├── train/
-    │   └── val/
-    └── data.yaml
 """
 
 import os
@@ -45,28 +22,45 @@ from collections import defaultdict
 # ============================================================
 # [경로 설정] Colab / 로컬 환경 자동 감지
 # ============================================================
-# get_ipython()은 Jupyter / Colab 환경에서만 존재하는 함수입니다.
-# 일반 터미널(로컬)에서 실행하면 NameError가 발생하므로 try-except로 처리합니다.
-try:
-    is_colab = 'google.colab' in str(get_ipython())
-except NameError:
-    is_colab = False  # 로컬(터미널) 환경
+# ✅ 수정: get_ipython() 방식 → os.path.exists('/content/drive') 방식으로 변경
+#
+# 기존 방식의 문제:
+#   get_ipython()은 실행 클라이언트(VSCode / Jupyter)에 의존하기 때문에
+#   VSCode + Colab 커널 연결 환경에서는 Colab 서버에서 실행 중이어도
+#   'google.colab' 문자열이 잡히지 않아 로컬로 오감지됩니다.
+#
+# 수정 후:
+#   /content/drive 폴더는 Colab 서버에만 존재하는 경로입니다.
+#   실행 클라이언트(VSCode / Jupyter / 터미널)와 무관하게
+#   서버 환경만으로 Colab 여부를 정확히 판단합니다.
+is_colab = os.path.exists('/content/drive')
 
 if is_colab:
     # ── Colab 환경 ──────────────────────────────────────────
-    # 구글 드라이브를 마운트해서 데이터에 접근합니다.
-    from google.colab import drive
-    drive.mount('/content/drive')
+    # VSCode + Colab 커널 환경에서는 드라이브가 이미 마운트되어 있을 수 있으므로
+    # try-except로 처리합니다. (중복 마운트 시 그냥 넘어감)
+    try:
+        from google.colab import drive
+        drive.mount('/content/drive')
+    except Exception:
+        pass  # 이미 마운트됐거나 VSCode 커널 환경 → 무시하고 진행
 
     # 레포가 없으면 자동으로 클론합니다. (최초 1회)
     REPO_DIR = '/content/pill_detection_project'
     if not os.path.exists(REPO_DIR):
         os.system('git clone https://github.com/wina0901/pill_detection_project.git ' + REPO_DIR)
 
-    # src/preprocessing 등을 import할 수 있도록 레포 루트를 경로에 추가합니다.
-    sys.path.insert(0, REPO_DIR)
+    # 레포 내부에 같은 이름의 중첩 폴더가 있는 경우 대응
+    # 예: /content/pill_detection_project/pill_detection_project/src/
+    PROJECT_ROOT = REPO_DIR
+    nested = os.path.join(REPO_DIR, 'pill_detection_project')
+    if os.path.isdir(os.path.join(nested, 'src')):
+        PROJECT_ROOT = nested
 
-    # 데이터 경로: 팀 공통 구글 드라이브 경로로 고정
+    # src/preprocessing 등을 import할 수 있도록 실제 루트를 경로에 추가합니다.
+    sys.path.insert(0, PROJECT_ROOT)
+
+    # 팀 공통 구글 드라이브 경로 (강사님과 세팅한 경로 그대로 사용)
     BASE_DIR = '/content/drive/MyDrive/data/초급_프로젝트/dataset'
 
 else:
