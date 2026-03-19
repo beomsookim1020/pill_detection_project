@@ -72,6 +72,11 @@ pill_detection_project/
 * 데이터는 구글 드라이브 `/MyDrive/data/초급_프로젝트/dataset/` 경로에 준비되어 있습니다.
 * Mac 로컬 환경에서는 `../data/`를 자동으로 바라봅니다.
 
+> **💡 PyTorch 설치 안내**
+> - **Colab**: PyTorch가 이미 설치되어 있습니다. 별도 설치 불필요.
+> - **Windows (CUDA 12.x)**: `pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121`
+> - **Mac (M1/M2/M3)**: `pip install torch torchvision torchaudio`
+
 ### Faster R-CNN / RetinaNet
 - `num_classes = 74` (background 포함, NB05 실행 시 출력됩니다)
 - `orig2model`: category_id → 모델 레이블 매핑 (1-based, 0=background)
