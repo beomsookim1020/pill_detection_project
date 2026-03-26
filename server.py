@@ -18,8 +18,8 @@ from src.inference.inference import (
 
 app = FastAPI(
     title="Pill Detection Ensemble Server",
-    description="YOLO 앙상블 기반 알약 객체 탐지 API",
-    version="3.2.0",
+    description="AI 8기 2팀 YOLO 앙상블 기반 알약 객체 탐지 API",
+    version="1.0.0",
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parent
