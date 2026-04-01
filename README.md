@@ -16,8 +16,8 @@ AI 8기 2팀 — 알약 객체 탐지 & 정보 제공 서비스
 
 | 역할 | 담당자 | 핵심 업무 |
 |------|--------|-----------|
-| Project Manager | 김기현 | 프로젝트 총괄 관리, 일정 조율 |
-| Data Engineer | 한의정 | EDA, 데이터 전처리, 증강 기법 |
+| Project Manager | 김기현 | 프로젝트 총괄 및 관리, FastAPI 기반 서빙 |
+| Data Engineer | 한의정 | EDA, 데이터 전처리, 각종 증강 기법 |
 | Experimentation Lead | 김범수 | RetinaNet 모델 기반 다양한 실험 |
 | Experimentation Lead | 박찬영 | Faster R-CNN 모델 기반 다양한 실험 |
 | Experimentation Lead | 유소연 | YOLO 모델 기반 다양한 실험 |
