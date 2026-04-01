@@ -25,7 +25,7 @@ AI 8기 2팀 — 알약 객체 탐지 & 정보 제공 서비스
 <br>
 
 ## 최종 모델 (YOLO8s+YOLO11m의 앙상블)
-[코드 바로가기](https://github.com/wina0901/pill_detection_project/blob/main/src/models/yolo/yolo_p2_v2.ipynb)
+- [코드 바로가기](https://github.com/wina0901/pill_detection_project/blob/main/src/models/yolo/yolo_p2_v2.ipynb)
 
 <br>
 
@@ -60,19 +60,19 @@ AI 8기 2팀 — 알약 객체 탐지 & 정보 제공 서비스
 
 MobileNetV3 백본 교체로 학습 시간 70% 단축, Optuna 하이퍼파라미터 튜닝으로 mAP@50 0.893 → 0.9202 달성 
 
-👉 [상세 내용 보기](src/models/fasterrcnn/)
+👉 **[상세 내용 보기](src/models/fasterrcnn/)**
 
 <br>
 
 ### RetinaNet
 
-👉 [상세 내용 보기](src/models/retinanet/)
+👉 **[상세 내용 보기](src/models/retinanet/)**
 
 <br>
 
 ### YOLO
 
-👉 [상세 내용 보기](src/models/yolo/)
+👉 **[상세 내용 보기](src/models/yolo/)**
 
 <br>
 
@@ -87,7 +87,7 @@ MobileNetV3 백본 교체로 학습 시간 70% 단축, Optuna 하이퍼파라미
 7. 원클릭 실행 환경 구성 (Setup & Run 자동화)
 8. 크로스 플랫폼 실행 지원
    
-👉 [상세 내용 보기](serve/README_serve.md)
+👉 **[상세 내용 보기](serve/README_serve.md)**
 
 <br>
 
