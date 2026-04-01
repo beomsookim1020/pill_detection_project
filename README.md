@@ -3,6 +3,11 @@ AI 8기 2팀 — 알약 객체 탐지 & 정보 제공 서비스
 
 <br>
 
+## 최종 모델 (YOLO8s+YOLO11m의 앙상블)
+[코드 바로가기](https://github.com/wina0901/pill_detection_project/blob/main/src/models/yolo/yolo_p2_v2.ipynb)
+
+<br>
+
 ## 협업 일지
 
 모두 같은 노션페이지에 작성하였습니다.
